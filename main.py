@@ -3,6 +3,7 @@ import random
 import time
 import logging
 from web3 import Web3
+from utils import decryption
 
 # Настройка логирования
 logging.basicConfig(
@@ -26,17 +27,6 @@ def load_config():
         logger.error(f"Ошибка при загрузке конфигурации: {e}")
         exit(1)
 
-# # Дешифровка приватных ключей
-# def decrypt_keys():
-#     try:
-#         with open("wallets_encrypted.txt", "r") as f:
-#             encrypted_keys = f.read().splitlines()
-#         cipher = Fernet(input("Введите ключ для дешифровки: ").encode())
-#         keys = [cipher.decrypt(k.encode()).decode() for k in encrypted_keys]
-#         return keys
-#     except Exception as e:
-#         logger.error(f"Ошибка при дешифровке ключей: {e}")
-#         exit(1)
 
 # Получение баланса ETH
 def get_balance(w3, address):
@@ -72,11 +62,9 @@ def send_transaction(w3, private_key, from_address, to_address, amount_eth):
 # Основная функция
 def main():
     config = load_config()
-
+    evm_keys = decryption.get_wallet_info_from_file()
     # Загрузка кошельков
     try:
-        with open("wallets.txt", "r") as f:
-            evm_keys = f.read().splitlines()
         with open("fuel-wallets.txt", "r") as f:
             fuel_addresses = f.read().splitlines()
         logger.info("Кошельки загружены")

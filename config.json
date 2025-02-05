@@ -1,0 +1,11 @@
+{
+  "rpc_urls": [
+    "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID",
+    "https://eth-mainnet.alchemyapi.io/v2/YOUR_ALCHEMY_API_KEY"
+  ],
+  "min_eth": 0.01,
+  "max_eth": 0.1,
+  "min_delay": 10,
+  "max_delay": 60,
+  "randomize_wallets": true
+}
